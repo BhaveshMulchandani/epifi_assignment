@@ -19,8 +19,8 @@ const router = express.Router();
  */
 router.get('/about', (req, res) => {
   res.status(200).json({
-    name: 'Notes App API',
-    email: 'support@notesapp.example',
+    name: 'Bhavesh Mulchandani',
+    email: 'bhaveshmulchandani330@gmail.com',
     'my features': {
       search: 'Implemented full text search for notes using MongoDB regex.',
       pagination: 'Added pagination support for scalable note retrieval.',
