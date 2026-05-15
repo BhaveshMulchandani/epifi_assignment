@@ -112,41 +112,6 @@ The API includes an intelligent mind map generator powered by Google Gemini API 
 - Returns structured JSON with nodes and connections
 - Maximum 10 nodes per mind map for clarity and usability
 
-### Example Mind Map Response
-
-```json
-{
-  "noteId": "507f1f77bcf86cd799439011",
-  "noteTitle": "Backend Architecture",
-  "mindMap": {
-    "central_topic": "Backend Development",
-    "summary": "Overview of backend technologies and architecture patterns",
-    "nodes": [
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "JWT",
-      "Authentication",
-      "Scalability"
-    ],
-    "connections": [
-      {
-        "from": "Backend Development",
-        "to": "Node.js"
-      },
-      {
-        "from": "Node.js",
-        "to": "Express"
-      },
-      {
-        "from": "Express",
-        "to": "JWT"
-      }
-    ]
-  }
-}
-```
-
 ## Deployment to Render
 
 https://epifi-assignment-z2g9.onrender.com
