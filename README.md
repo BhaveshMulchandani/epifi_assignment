@@ -17,7 +17,6 @@ A production-ready backend Notes application built with Node.js, Express.js, Mon
 
 ## Folder Structure
 
-```
 /config
 /controllers
 /middlewares
@@ -30,36 +29,23 @@ src/app.js
 .env.example
 package.json
 README.md
-```
 
 ## Setup
 
 1. Clone the repository.
 2. Install dependencies:
 
-```bash
 npm install
-```
 
-3. Create a `.env` file from `.env.example` and provide values.
+3. Create a `.env` file
 4. Start the development server:
 
-```bash
-npm run dev
-```
+
+npm start
 
 5. Start the production server:
 
-```bash
 npm start
-```
-
-## Environment Variables
-
-- `PORT` - port for app to listen on
-- `MONGODB_URI` - MongoDB Atlas connection string
-- `JWT_SECRET` - secret for signing JWT tokens
-- `NODE_ENV` - environment mode (`development` or `production`)
 
 ## API Endpoints
 
@@ -104,6 +90,16 @@ curl -X GET http://localhost:3000/notes \
 
 ## Deployment to Render
 
+The API is already deployed at:
+
+https://epifi-assignment-z2g9.onrender.com
+
+OpenAPI JSON is available at:
+
+https://epifi-assignment-z2g9.onrender.com/openapi.json
+
+If you want to deploy from source, use these steps:
+
 1. Create a new Web Service on Render.
 2. Connect your GitHub repository.
 3. Set the build command:
@@ -126,15 +122,6 @@ npm start
 - `NODE_ENV=production`
 
 6. Deploy the service.
-
-## Testing Instructions
-
-Use tools like Postman or curl to test endpoints. Required workflow:
-
-1. Register a user with `POST /register`
-2. Login with `POST /login`
-3. Use returned `access_token` in `Authorization: Bearer <token>` headers
-4. Create, list, update, delete, share, archive, and search notes
 
 ## Technologies Used
 
