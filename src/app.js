@@ -18,7 +18,14 @@ app.use(express.json());
 app.use(morgan('combined'));
 app.use(apiLimiter);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Notes App API is running successfully",
+    swagger_documentation: "/openapi.json",
+  });
+});
+
 app.get('/openapi.json', (req, res) => res.json(swaggerSpec));
 
 app.use(authRoutes);
