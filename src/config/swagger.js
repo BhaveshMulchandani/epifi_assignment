@@ -11,8 +11,8 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:3000',
-      description: 'Local development server',
+      url: 'https://epifi-assignment-z2g9.onrender.com',
+      description: 'production server',
     },
   ],
   components: {
