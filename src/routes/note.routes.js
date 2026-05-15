@@ -314,4 +314,63 @@ router.get(
   noteController.searchNotes
 );
 
+/**
+ * @swagger
+ * /notes/{id}/mindmap:
+ *   post:
+ *     summary: Generate AI-powered mind map from note content
+ *     tags:
+ *       - Notes
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Note ID
+ *     responses:
+ *       200:
+ *         description: Mind map generated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 noteId:
+ *                   type: string
+ *                 noteTitle:
+ *                   type: string
+ *                 mindMap:
+ *                   type: object
+ *                   properties:
+ *                     central_topic:
+ *                       type: string
+ *                     summary:
+ *                       type: string
+ *                     nodes:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     connections:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           from:
+ *                             type: string
+ *                           to:
+ *                             type: string
+ *       400:
+ *         description: Invalid note ID or empty note content
+ *       403:
+ *         description: Access denied to this note
+ *       404:
+ *         description: Note not found
+ *       503:
+ *         description: AI API error
+ */
+router.post('/notes/:id/mindmap', authenticate, noteController.generateMindMap);
+
 module.exports = router;

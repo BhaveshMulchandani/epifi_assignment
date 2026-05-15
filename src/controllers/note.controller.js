@@ -228,3 +228,43 @@ exports.unarchiveNote = async (req, res) => {
 
   res.status(200).json({ message: 'Note unarchived successfully' });
 };
+
+exports.generateMindMap = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Invalid note ID' });
+  }
+
+  const note = await Note.findById(id);
+  if (!note) {
+    return res.status(404).json({ message: 'Note not found' });
+  }
+
+  const isOwner = note.owner.equals(req.user._id);
+  const isShared = note.sharedWith.some((userId) => userId.equals(req.user._id));
+
+  if (!isOwner && !isShared) {
+    return res.status(403).json({ message: 'Access denied to this note' });
+  }
+
+  if (!note.content || note.content.trim().length === 0) {
+    return res.status(400).json({ message: 'Note content is empty, cannot generate mind map' });
+  }
+
+  try {
+    const { generateMindMap } = require('../utils/gemini.service');
+    const mindMap = await generateMindMap(note.content);
+
+    res.status(200).json({
+      noteId: note._id,
+      noteTitle: note.title,
+      mindMap,
+    });
+  } catch (error) {
+    console.error('Error generating mind map:', error);
+    const statusCode = error.message.includes('API') ? 503 : 500;
+    res.status(statusCode).json({ message: error.message || 'Failed to generate mind map' });
+  }
+};
+

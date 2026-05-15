@@ -96,6 +96,30 @@ const swaggerDefinition = {
           },
         },
       },
+      MindMapConnection: {
+        type: 'object',
+        properties: {
+          from: { type: 'string' },
+          to: { type: 'string' },
+        },
+      },
+      MindMap: {
+        type: 'object',
+        properties: {
+          central_topic: { type: 'string' },
+          summary: { type: 'string' },
+          nodes: { type: 'array', items: { type: 'string' } },
+          connections: { type: 'array', items: { $ref: '#/components/schemas/MindMapConnection' } },
+        },
+      },
+      MindMapResponse: {
+        type: 'object',
+        properties: {
+          noteId: { type: 'string' },
+          noteTitle: { type: 'string' },
+          mindMap: { $ref: '#/components/schemas/MindMap' },
+        },
+      },
     },
   },
   security: [

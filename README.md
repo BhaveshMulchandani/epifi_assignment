@@ -11,6 +11,7 @@ A production-ready backend Notes application built with Node.js, Express.js, Mon
 - Archive and unarchive notes
 - Pagination support for notes listing
 - Search notes by title or content
+- **AI-Powered Mind Map Generation** - uses Google Gemini API to transform notes into structured semantic mind maps
 - Swagger/OpenAPI documentation
 - Centralized error handling, validation, rate limiting, and security middleware
 - Render-ready deployment configuration
@@ -64,6 +65,7 @@ npm start
 - `POST /notes/:id/share` - share a note with another user (owner only)
 - `PATCH /notes/:id/archive` - archive a note (owner only)
 - `PATCH /notes/:id/unarchive` - unarchive a note (owner only)
+- `POST /notes/:id/mindmap` - generate AI-powered mind map from note content (owner or shared user)
 - `GET /search` - search notes by keyword
 - `GET /about` - application metadata
 - `GET /openapi.json` - OpenAPI specification JSON
@@ -88,9 +90,64 @@ curl -X GET http://localhost:3000/notes \
   -H "Authorization: Bearer <token>"
 ```
 
-## Deployment to Render
+```bash
+curl -X POST http://localhost:3000/notes/:id/mindmap \
+  -H "Authorization: Bearer <token>"
+```
 
-The API is already deployed at:
+## Environment Variables
+
+- `PORT` - port for app to listen on
+- `MONGODB_URI` - MongoDB Atlas connection string
+- `JWT_SECRET` - secret for signing JWT tokens
+- `NODE_ENV` - environment mode (`development` or `production`)
+- `GEMINI_API_KEY` - Google Gemini API key for AI mind map generation
+
+## AI-Powered Mind Map Generation
+
+The API includes an intelligent mind map generator powered by Google Gemini API that transforms unstructured notes into structured semantic mind maps:
+
+- Extracts main topics from note content
+- Identifies important concepts and relationships
+- Returns structured JSON with nodes and connections
+- Maximum 10 nodes per mind map for clarity and usability
+
+### Example Mind Map Response
+
+```json
+{
+  "noteId": "507f1f77bcf86cd799439011",
+  "noteTitle": "Backend Architecture",
+  "mindMap": {
+    "central_topic": "Backend Development",
+    "summary": "Overview of backend technologies and architecture patterns",
+    "nodes": [
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+      "Authentication",
+      "Scalability"
+    ],
+    "connections": [
+      {
+        "from": "Backend Development",
+        "to": "Node.js"
+      },
+      {
+        "from": "Node.js",
+        "to": "Express"
+      },
+      {
+        "from": "Express",
+        "to": "JWT"
+      }
+    ]
+  }
+}
+```
+
+## Deployment to Render
 
 https://epifi-assignment-z2g9.onrender.com
 
@@ -118,6 +175,7 @@ npm start
 
 - `MONGODB_URI`
 - `JWT_SECRET`
+- `GEMINI_API_KEY`
 - `PORT`
 - `NODE_ENV=production`
 
@@ -138,3 +196,4 @@ npm start
 - swagger-jsdoc
 - swagger-ui-express
 - express-rate-limit
+- @google/generative-ai (Google Gemini API)
